@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCL Translate</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <section class="sm-img-container d-md-none">
+        <img src="imgs/index.jpg" alt="image" >
+    </section>
+    <article class="body-container d-md-flex">
+        <section id="contact" class="py-3 col-md-5">
+            <div class="container" id="detailsBoard">
+              <div style="text-align: center;">
+                <img src="imgs/logo.jpg" alt="logo" class="mt-3">
+                <h2 class="mt-4 ">Welcome to our Language Translation App</h2>
+                <p class="mb-3 mb-md-5" style="font-weight: 600;">Please enter the English text you require translating below and select the languages you wish to have the translations for. Select Review for the final costings</p>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-sm-6 mb-md-2">
+                          <div class="form-group">
+                            <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                          </div>
+                        </div>
+                        <div class="col-sm-6 mb-md-2">
+                          <div class="form-group">
+                            <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                          </div>
+                        </div>
+                        <div class="col-12 mb-md-2">
+                          <div class="form-group">
+                            <input type="email" class="form-control" id="emailAddress" placeholder="Email Address">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 mb-md-2">
+                          <div class="form-group">
+                            <textarea class="form-control" placeholder="Enter Your Text here" id="translationText" rows="8"></textarea>
+                          </div>
+                        </div>
+                        <div class="lang-selected col-md-12 mb-3">
+                            <h6 style="font-weight: 600;">Languages Selected:</h6>
+                            <small id="selectedLanguages">No languages selected</small>
+                        </div>
+                        <div class="alert alert-danger" role="alert" id="mainErrorMsg">
+                          
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group btns-group  p-3">
+                            <button type="button" class="btn btn-block" data-toggle="modal" id="selectLanguageBtn" data-target="#selectionModel">Select Language</button>
+                            <button type="button" id="submit1" class="btn btn-block">Review</button>
+                          </div>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- final result -->
+            <div class="container d-none" id="finalResult">
+              <div style="text-align: center;">
+                <img src="imgs/logo.jpg" alt="logo" class="mt-3">
+                <p id="arrow" class="mt-3 text-dark back-p">go back to edit your details</p>
+                <h4 class="mb-4">Please Review your details</h4>
+                </div>
+              <div class="row ">
+                <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="form-group info">
+                            <input type="text" class="form-control bg-white inp1" readonly placeholder="Name">
+                            <input type="text" class="form-control inp2 bg-white" readonly style="overflow-wrap: break-word;" id="name" value="john smith">
+                            <h5>|</h5>
+                        </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="form-group info">
+                            <input type="text" class="form-control bg-white inp1" readonly placeholder="Email Address">
+                            <textarea type="text" class="form-control bg-white inp2" style="overflow-wrap: break-word;" readonly id="email" value="email@example.com"></textarea>
+                            <h5>|</h5>
+                        </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="form-group info">
+                            <input type="text" class="form-control bg-white inp1" readonly placeholder="Words Count">
+                            <input type="text" class="form-control bg-white inp2" readonly id="wordsCount" value="100 Words">
+                            <h5>|</h5>
+                        </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="form-group info">
+                            <input type="text" class="form-control bg-white inp1" readonly placeholder="Languages Selected">
+                            <textarea type="text" class="form-control bg-white inp2" readonly style="overflow-wrap: break-word;" id="selectedLanguagesResult" value="Arabic, Chinese"></textarea>
+                            <h5>|</h5>
+                        </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="form-group info">
+                            <input type="text" class="form-control bg-white inp1" readonly placeholder="Your Final Cost">
+                            <input type="text" class="form-control bg-white inp2" readonly id="cost" value="100 GBP">
+                        </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-center " style="width: 100%; margin-top: 10px;" >
+                          <div class="spinner-border text-primary" role="status" id="loading">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                        <div class="alert alert-danger" role="alert" id="submitErrorMsg">
+                          
+                        </div>
+                        <div class="col-md-12 mt-2">
+                          <div class="form-group btns-group mb-1 p-3 ">
+                            <button type="button" id="submit2" class="btn btn-block">Submit</button>
+                          </div>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- after submitting -->
+            <div class="after-sub container d-none" id="afterSub">
+              <div style="text-align: center;">
+                <img src="imgs/logo.jpg" alt="logo" class="my-3 my-lg-5">
+                <h5 class="mb-4">Thank you for Submitting your translations, if you would like to proceed with ordering your language translations, please select the Pay Now button below. Please allow 24 hours for translations to be emailed</h5>
+              </div>
+
+               <div class="d-flex justify-content-center " style="width: 100%; margin-top: 10px;" >
+                    <div class="spinner-border text-primary" role="status" id="payLoading">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <div class="alert alert-danger" role="alert" id="payErrorMsg">
+                          
+                </div>
+                <div id="dropin-container"></div>
+              <div class="form-group btns-group mt-5 last-btn">
+                <small class="payment-salary">Pay: $0.30 (GBP)</small>
+                <button type="" class="btn btn-block" id="payNow">Pay Now</button>
+                <button type="" class="btn btn-block" id="paymentSubmit">Submit</button>
+              </div>
+              <div class="our-website">
+                <h5 class="mt-5">Please Visit our website</h5>
+              <a target="blank" href="https://www.washcarelabels.co.uk" class="text-dark" style="text-decoration: underline;">www.washcarelabels.co.uk</a>
+              </div>
+            </div>
+          </section>
+        <section class="bg-img-container d-none d-md-block col-md-7">
+            <img src="imgs/index.jpg" alt="image" >
+        </section>
+    </article>
+    <!-- modals -->
+    <div class="modal fade" id="selectionModel" role="dialog">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content container">
+              <div class="header d-flex mt-3">
+                  <button type="button" class="close-icon" data-dismiss="modal" id="closeDialog">x</button>
+                  <h2 class="ml-3">Select Languages</h2>
+              </div>
+              <div class="modal-body">
+                <div class="selections">
+                 
+                </div>
+                <div class="form-group btns-group  mt-5">
+                  <button type="" class="btn btn-block" data-dismiss="modal" id="done">Done</button>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div> 
+    <script src="https://js.braintreegateway.com/web/dropin/1.26.0/js/dropin.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/code.js"></script>
+</body>
+</html>
